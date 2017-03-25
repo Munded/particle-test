@@ -1,0 +1,26 @@
+{
+  "name": "particle-test",
+  "version": "1.0.0",
+  "description": "particle demo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "latest",
+    "express-session": "latest",
+    "http": "0.0.0",
+    "https": "^1.0.0",
+    "jquery": "^2.1.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Munded/particle-test.git"
+  },
+  "author": "Ed",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Munded/particle-test/issues"
+  },
+  "homepage": "https://github.com/Munded/particle-test#readme"
+}
