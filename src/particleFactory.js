@@ -1,4 +1,4 @@
-function particleFactory(){
+function particleFactory(particles){
 	var noOfParticles = 0;
 
 	$('#particleContainer').click(function(e) {  
@@ -23,12 +23,15 @@ function particleFactory(){
 		var parentDiv = document.getElementById('particleContainer'); 
 		parentDiv.appendChild(newParticle)
 
-		particle(xPos, yPos, name);
+		var p = new Particle(xPos, yPos, name);
+
+		window.setInterval(function(){p.move()}, 10);
 	});
 
 }
 
 $(document).ready(function(){
-	particleFactory();
+	var particles = [];
+	particleFactory(particles);
 })
 
