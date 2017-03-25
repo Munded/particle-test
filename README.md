@@ -15,6 +15,6 @@ A test to see if i can write some basic particle functionality
 
 
 **Things to do:**
-- v1: basic container where particle will constantly move around environment, depending on where it collides with wall, spawned from fixed position
+- v1: basic container where particles will constantly move around environment, depending on where it collides with wall, spawned from click event
 - v1.5: Write tests for functionality
-- v2: can spawn particles on click events, collision of particles will effect movement
+- v2: collision between particles
