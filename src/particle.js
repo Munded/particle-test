@@ -1,15 +1,11 @@
-function particle(e){
+function particle(xPosition, yPosition, name){
 	var xDirection = "forward"
 	var yDirection = "forward"
 
-	var parentOffset = document.getElementById('particleContainer'); 
-   var xPos = e.pageX - parentOffset.offsetLeft;
-   var yPos = e.pageY - parentOffset.offsetTop;
-   console.log(parentOffset)
-   console.log(e);
-	var particle = document.getElementById("particle");
-	$("#particle").css({"background":"white"});
-	$("#particle").offset({left:xPos,top:yPos});
+	var particle = document.getElementById(name);
+
+	var xPos = xPosition;
+	var yPos = yPosition;
 
 	var id = setInterval(move, 10);
 
@@ -74,9 +70,3 @@ function particle(e){
 		particle.style.top = yPos + 'px';
 	}
 }
-
-$('#particleContainer').click(function(e) {  
-    particle(e)
-});
-
-//document.addEventListener("click", particle);
