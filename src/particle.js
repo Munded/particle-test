@@ -1,18 +1,21 @@
-function particle(){
-	var origin = 0;
-	var xPos = 0;
-	var yPos = 0;
+function particle(e){
 	var direction = "forward"
 
+	var parentOffset = document.getElementById('particleContainer'); 
+   var xPos = e.pageX - parentOffset.offsetLeft;
+   var yPos = e.pageY - parentOffset.offsetTop;
+   console.log(parentOffset)
+   console.log(e);
 	var particle = document.getElementById("particle");
 	$("#particle").css({"background":"white"});
+	$("#particle").offset({left:xPos,top:yPos});
 
 	var id = setInterval(move, 10);
 
 	function move(){
 		switch(direction) {
 			case "forward":
-					if (origin < 350) {
+					if (xPos < 350 && yPos < 350) {
 						moveForward();
 					}
 					else {
@@ -20,7 +23,7 @@ function particle(){
 					}
 				break;
 			case "backward":
-					if (origin >= 1) {
+					if (xPos >= 1 && yPos >= 1) {
 						moveBackward();
 					}
 					else {
@@ -31,15 +34,17 @@ function particle(){
 	}
 
 	function moveForward(){
-			origin++;
-			particle.style.top = origin + 'px';
-			particle.style.left = origin + 'px'
+		yPos++;
+		xPos++;
+		particle.style.top = yPos + 'px';
+		particle.style.left = xPos + 'px'
 	}
 
 	function moveBackward(){
-		origin--;
-		particle.style.top = origin + 'px';
-		particle.style.left = origin + 'px'
+		yPos--;
+		xPos--;
+		particle.style.top = yPos + 'px';
+		particle.style.left = xPos + 'px'
 	}
 	// function moveXForward(){
 
@@ -58,4 +63,8 @@ function particle(){
 	// }
 }
 
-document.addEventListener("click", particle);
+$('#particleContainer').click(function(e) {  
+    particle(e)
+});
+
+//document.addEventListener("click", particle);
