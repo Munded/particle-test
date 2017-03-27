@@ -12,15 +12,10 @@ var Particle = function(xPosition, yPosition, name){
 }
 
 Particle.prototype.move = function(){
-	// var enemy = document.elementFromPoint(xPos, yPos);
-	// if (enemy != undefined && enemy.id != "particleContainer" && enemy.id != "") {
-	// 	if (enemy.offsetLeft >= xPos && enemy.offsetLeft <= (xPos + 50)) {
-	// 		xDirection = xDirection === "forward" ? "backward": "forward";
-	// 	};
-	// 	if (enemy.offsetTop <= (yPos + 50) && enemy.offsetTop >= yPos) {
-	// 	yDirection = yDirection === "forward" ? "backward": "forward";
-	// 	};	
-	// };
+	var enemy = document.elementFromPoint(this.xPos, this.yPos);
+	if (enemy != undefined && enemy.id != "particleContainer" && enemy.id != "") {
+		this.checkCollission(enemy);
+	};
 
 	switch(this.xDirection) {
 		case "forward":
@@ -28,8 +23,7 @@ Particle.prototype.move = function(){
 					this.moveXForward();
 				}
 				else {
-					this.xDirection = "backward"
-					this.particle.style.background = this.getNewColour(this.particle.style.background);
+					this.onXCollission();
 				}
 			break;
 		case "backward":
@@ -37,8 +31,7 @@ Particle.prototype.move = function(){
 					this.moveXBackward();
 				}
 				else {
-					this.xDirection = "forward"
-					this.particle.style.background = this.getNewColour(this.particle.style.background);
+					this.onXCollission();
 				}
 			break;
 	}
@@ -49,8 +42,7 @@ Particle.prototype.move = function(){
 					this.moveYForward();
 				}
 				else {
-					this.yDirection = "backward"
-					this.particle.style.background = this.getNewColour(this.particle.style.background);
+					this.onYCollission();
 				};
 			break;
 		case "backward":
@@ -58,8 +50,7 @@ Particle.prototype.move = function(){
 					this.moveYBackward();
 				}
 				else {
-					this.yDirection = "forward"
-					this.particle.style.background = this.getNewColour(this.particle.style.background);
+					this.onYCollission();
 				};
 			break;
 	}
@@ -92,5 +83,43 @@ Particle.prototype.getNewColour = function(currentColour){
 		newColour = this.colours[Math.floor(Math.random() * this.colours.length)];
 	};
 	return newColour;
+}
+
+Particle.prototype.onXCollission = function(){
+	this.xDirection = this.xDirection === "forward" ? "backward" : "forward"
+	this.particle.style.background = this.getNewColour(this.particle.style.background);
+}
+
+Particle.prototype.onYCollission = function(){
+	this.yDirection = this.yDirection === "forward" ? "backward" : "forward"
+	this.particle.style.background = this.getNewColour(this.particle.style.background);
+}
+
+Particle.prototype.checkCollission = function(enemy){
+	var rectEnemy = enemy.getBoundingClientRect();
+	var rectParticle = this.particle.getBoundingClientRect();
+
+	var xOverlap = !(rectEnemy.right < rectParticle.left || rectEnemy.left > rectParticle.right);
+	var yOverlap = !(rectEnemy.bottom < rectParticle.top || rectEnemy.top > rectParticle.bottom)
+
+	if (xOverlap){
+		this.onXCollission();
+	}
+
+	if (yOverlap){
+		this.onYCollission();
+	}
+
+	// var circlePar = {radius: 5, x: rectParticle.left, y: rectParticle.top};
+	// var circleEnemy = {radius: 5, x: rectEnemy.left, y: rectEnemy.top};
+
+	// var dx = circlePar.x - circleEnemy.x;
+	// var dy = circlePar.y - circleEnemy.y;
+	// var distance = Math.sqrt(dx * dx + dy * dy);
+
+	// if (distance < circlePar.radius + circleEnemy.radius) {
+	//     this.onXCollission();
+	//     this.onYCollission();
+	// }
 }
 
